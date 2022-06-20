@@ -4,6 +4,8 @@ import { createDataSet } from "./data/dataset"
 import "./App.css"
 import Header from "./components/Header/Header"
 import Instructions from "./components/Instructions/Instructions"
+import Chip from "./components/Chip/Chip"
+import { render } from "@testing-library/react"
 // don't move this!
 export const appInfo = {
   title: `Fast Food Feud 🍔!`,
@@ -22,13 +24,20 @@ export const appInfo = {
 const { data, categories, restaurants } = createDataSet()
 
 export function App() {
+  
   return (
+
     <main className="App">
       {/* CATEGORIES COLUMN */}
+
       <div className="CategoriesColumn col">
         <div className="categories options">
           <h2 className="title">Categories</h2>
-          {/* YOUR CODE HERE */}
+          { categories.map((category) => {
+            
+            return  <Chip isActive={true} label={category}/> 
+          })}
+
         </div>
       </div>
 
@@ -40,7 +49,11 @@ export function App() {
         {/* RESTAURANTS ROW */}
         <div className="RestaurantsRow">
           <h2 className="title">Restaurants</h2>
-          <div className="restaurants options">{/* YOUR CODE HERE */}</div>
+          <div className="restaurants options">{
+            restaurants.map((restaurant) => {
+              return <Chip isActive={true} label={restaurant}/>
+            })
+          }</div>
         </div>
 
         {/* INSTRUCTIONS GO HERE */
