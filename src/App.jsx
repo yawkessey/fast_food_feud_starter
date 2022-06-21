@@ -1,3 +1,4 @@
+import { useState } from "react"
 import * as React from "react"
 // IMPORT ANY NEEDED COMPONENTS HERE
 import { createDataSet } from "./data/dataset"
@@ -23,8 +24,19 @@ export const appInfo = {
 // or this!
 const { data, categories, restaurants } = createDataSet()
 
+
 export function App() {
   
+  const [category, setCategory] = useState("")
+  const [restaurant, setRestauraunt] = useState("")
+
+const handleCategoryClick = (cat) => {
+  setCategory(cat)
+}
+
+const handleRestaurantClick = (res) => {
+  setRestauraunt(res)
+}
   return (
 
     <main className="App">
@@ -33,9 +45,10 @@ export function App() {
       <div className="CategoriesColumn col">
         <div className="categories options">
           <h2 className="title">Categories</h2>
-          { categories.map((category) => {
-            
-            return  <Chip isActive={true} label={category}/> 
+          { categories.map((cat) =>  {
+           
+            return  <Chip label={cat} isActive={cat === category} onClick={() => handleCategoryClick(cat)} /> 
+          
           })}
 
         </div>
@@ -50,12 +63,14 @@ export function App() {
         <div className="RestaurantsRow">
           <h2 className="title">Restaurants</h2>
           <div className="restaurants options">{
-            restaurants.map((restaurant) => {
-              return <Chip isActive={true} label={restaurant}/>
+            restaurants.map((res) => {
+              // If setCategory is equal to what was clicked
+              //Make isActive true
+              return <Chip isActive={res === restaurant} label={res} onClick={() => handleRestaurantClick(res) }/>
             })
           }</div>
         </div>
-
+        
         {/* INSTRUCTIONS GO HERE */
         <Instructions instruct = {appInfo}/>
         }
@@ -67,8 +82,11 @@ export function App() {
             {/* YOUR CODE HERE */}
           </div>
 
+          
           {/* NUTRITION FACTS */}
-          <div className="NutritionFacts nutrition-facts">{/* YOUR CODE HERE */}</div>
+          <div className="NutritionFacts nutrition-facts">{
+            
+          }</div>
         </div>
 
         <div className="data-sources">
