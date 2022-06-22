@@ -77,8 +77,6 @@ var currentMenuItems = data.filter((menuItem)=>{return menuItem.restaurant === r
           <h2 className="title">Restaurants</h2>
           <div className="restaurants options">{
             restaurants.map((res) => {
-              // If setCategory is equal to what was clicked
-              //Make isActive true
               return <Chip isActive={res === restaurant} label={res} onClick={() => handleRestaurantClick(res)}/>
             })
           }</div>
@@ -94,7 +92,7 @@ var currentMenuItems = data.filter((menuItem)=>{return menuItem.restaurant === r
             <h2 className="title">Menu Items</h2>
             {
               currentMenuItems.map((menu)=>(
-                <Chip label={menu.item_name} onClick={()=> hanleMenuClick(menu) } />
+                <Chip isActive={menu == selectedMenuItem} label={menu.item_name} onClick={()=> hanleMenuClick(menu) } />
               ))
             }
           </div>
