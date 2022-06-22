@@ -6,15 +6,10 @@ import App from "../../App";
 
 
 export function Chip({ label = "", isActive = false, onClick }) {
-  let buttonClassName;
+  let buttonClassName = isActive ? "chip active" : "chip"
 
   //const [category, setCategory] = useState("")
 
- if(isActive) {
-  buttonClassName = "chip active"
- } else {
-  buttonClassName = "chip"
- }
  
   return (
     <button className = {buttonClassName} onClick={onClick}>

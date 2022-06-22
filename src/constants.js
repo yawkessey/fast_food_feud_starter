@@ -24,3 +24,4 @@ export const nutritionFacts = [
   { id: 8, label: "Saturated Fat", attribute: "saturated_fat" },
   { id: 9, label: "Trans Fat", attribute: "trans_fat" },
 ]
+

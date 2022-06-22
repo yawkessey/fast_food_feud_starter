@@ -7,6 +7,9 @@ import Header from "./components/Header/Header"
 import Instructions from "./components/Instructions/Instructions"
 import Chip from "./components/Chip/Chip"
 import { render } from "@testing-library/react"
+import NutritionalLabel from "./components/NutritionalLabel/NutritionalLabel"
+import { nutritionFacts } from "./constants"
+
 // don't move this!
 export const appInfo = {
   title: `Fast Food Feud 🍔!`,
@@ -29,6 +32,7 @@ export function App() {
   
   const [category, setCategory] = useState("")
   const [restaurant, setRestauraunt] = useState("")
+  const [selectedMenuItem, setSelectedMenuItem] = useState("")
 
 const handleCategoryClick = (cat) => {
   setCategory(cat)
@@ -37,6 +41,13 @@ const handleCategoryClick = (cat) => {
 const handleRestaurantClick = (res) => {
   setRestauraunt(res)
 }
+
+const hanleMenuClick = (menu) => {
+  setSelectedMenuItem(menu)
+}
+
+var currentMenuItems = data.filter((menuItem)=>{return menuItem.restaurant === restaurant && menuItem.food_category === category})
+
   return (
 
     <main className="App">
@@ -57,7 +68,9 @@ const handleRestaurantClick = (res) => {
       {/* MAIN COLUMN */}
       <div className="container">
         {/* HEADER GOES HERE */
-        <Header info={appInfo}/>}
+        // <Header info={appInfo}/>
+        <Header title={appInfo.title} tagline={appInfo.tagline} description={appInfo.description} />
+        }
  
         {/* RESTAURANTS ROW */}
         <div className="RestaurantsRow">
@@ -66,27 +79,33 @@ const handleRestaurantClick = (res) => {
             restaurants.map((res) => {
               // If setCategory is equal to what was clicked
               //Make isActive true
-              return <Chip isActive={res === restaurant} label={res} onClick={() => handleRestaurantClick(res) }/>
+              return <Chip isActive={res === restaurant} label={res} onClick={() => handleRestaurantClick(res)}/>
             })
           }</div>
         </div>
         
         {/* INSTRUCTIONS GO HERE */
-        <Instructions instruct = {appInfo}/>
+        <Instructions instructions = {appInfo.instructions.start}/>
         }
 
         {/* MENU DISPLAY */}
         <div className="MenuDisplay display">
           <div className="MenuItemButtons menu-items">
             <h2 className="title">Menu Items</h2>
-            {/* YOUR CODE HERE */}
+            {
+              currentMenuItems.map((menu)=>(
+                <Chip label={menu.item_name} onClick={()=> hanleMenuClick(menu) } />
+              ))
+            }
           </div>
 
           
           {/* NUTRITION FACTS */}
-          <div className="NutritionFacts nutrition-facts">{
+          <div className="NutritionFacts nutrition-facts">
             
-          }</div>
+              {selectedMenuItem ? <NutritionalLabel item = {selectedMenuItem}/> : null} 
+            
+          </div>
         </div>
 
         <div className="data-sources">
